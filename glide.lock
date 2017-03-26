@@ -1,0 +1,19 @@
+hash: fcd1ccffdc323b027cccb56b08a0680e5c22cbe727bfb7d4e522f17cc1d7d006
+updated: 2017-03-25T23:16:38.750200354-07:00
+imports:
+- name: github.com/andybalholm/cascadia
+  version: 349dd0209470eabd9514242c688c403c0926d266
+- name: github.com/jasonlvhit/gocron
+  version: 42a5804d37aa0b9239b265e894a16b8edbf52d54
+- name: github.com/jordan-wright/email
+  version: a62870b0c368c3c29de27027be67d855e308cc37
+- name: github.com/PuerkitoBio/goquery
+  version: e1271ee34c6a305e38566ecd27ae374944907ee9
+- name: github.com/spf13/viper
+  version: 84f94806c67f59dd7ae87bc5351f7a9c94a4558d
+- name: golang.org/x/net
+  version: 6c23252515492caf9b228a9d5cabcdbde29f7f82
+  subpackages:
+  - html
+  - html/atom
+testImports: []
