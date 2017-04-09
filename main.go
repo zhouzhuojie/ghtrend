@@ -1,31 +1,33 @@
 package main
 
 import (
-	"fmt"
+	"os"
 
 	"github.com/jasonlvhit/gocron"
-	"github.com/zhouzhuojie/ghtrend/crawl"
-	"github.com/zhouzhuojie/ghtrend/mail"
+)
+
+var (
+	// config the gmail auth from env
+	userEmail    = os.Getenv("userEmail")
+	userPassword = os.Getenv("userPassword")
+
+	// config which languages you are interested in
+	// separated by ","
+	// e.g. languages=go,python,javascript
+	ghLanguages = os.Getenv("languages")
 )
 
 func main() {
 
 	// send the first time when we run
-	scheduledSendGithubTrendMail()
+	sendGithubTrendMail()
 
 	// send every day at utc 3:30 am
-	gocron.Every(1).Day().At("03:30").Do(scheduledSendGithubTrendMail)
-
-	_, time := gocron.NextRun()
-	fmt.Println(time)
-
+	gocron.Every(1).Day().At("03:30").Do(sendGithubTrendMail)
 	<-gocron.Start()
 }
 
-func scheduledSendGithubTrendMail() {
-	html := crawl.CrawlGithubTrendingPages()
-	err := mail.SendGithubTrendMail(html)
-	if err != nil {
-		fmt.Println(err)
-	}
+func sendGithubTrendMail() {
+	html := CrawlGithubTrendingPages()
+	SendGithubTrendMail(html)
 }

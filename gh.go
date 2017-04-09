@@ -1,4 +1,4 @@
-package crawl
+package main
 
 import (
 	"bytes"
@@ -12,12 +12,7 @@ import (
 
 const (
 	ghTrendingURLBase = "https://github.com/trending?l=%s"
-	htmlTemplateFile  = "mail/email_template.html"
 	htmlTemplateName  = "email_template.html"
-)
-
-var (
-	languages = []string{"", "go", "python", "javascript"}
 )
 
 // GithubTrendingProject is an item that represents the trending item
@@ -68,7 +63,7 @@ var FormHTML = func(m map[string][]*GithubTrendingProject) []byte {
 
 	var b bytes.Buffer
 
-	t := template.Must(template.New(htmlTemplateName).ParseFiles(htmlTemplateFile))
+	t := template.Must(template.New(htmlTemplateName).ParseFiles(htmlTemplateName))
 	err := t.Execute(&b, m)
 	if err != nil {
 		fmt.Println(err)
@@ -80,7 +75,12 @@ var FormHTML = func(m map[string][]*GithubTrendingProject) []byte {
 
 // CrawlGithubTrendingPages crawls the pages using the languages defined
 var CrawlGithubTrendingPages = func() []byte {
+
+	languages := strings.Split(ghLanguages, ",")
+	languages = append([]string{""}, languages...)
+
 	m := make(map[string][]*GithubTrendingProject)
+
 	var wg sync.WaitGroup
 	for _, l := range languages {
 		ll := l
