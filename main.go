@@ -13,8 +13,8 @@ func main() {
 	// send the first time when we run
 	scheduledSendGithubTrendMail()
 
-	// send every day at 5:30 am
-	gocron.Every(1).Day().At("05:30").Do(scheduledSendGithubTrendMail)
+	// send every day at utc 3:30 am
+	gocron.Every(1).Day().At("03:30").Do(scheduledSendGithubTrendMail)
 
 	_, time := gocron.NextRun()
 	fmt.Println(time)
