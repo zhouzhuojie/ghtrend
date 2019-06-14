@@ -38,16 +38,16 @@ var CrawlGithubTrendingPageWithLanguage = func(language string) ([]*GithubTrendi
 
 	var projects []*GithubTrendingProject
 
-	doc.Find("ol.repo-list li").Each(func(i int, s *goquery.Selection) {
+	doc.Find("article.Box-row").Each(func(i int, s *goquery.Selection) {
 
-		url, _ := s.Find("h3 a").Attr("href")
+		url, _ := s.Find("h1 a").Attr("href")
 
 		description := s.Find("p.col-9").Text()
 		description = strings.Replace(description, "\n", "", -1)
 		description = strings.Replace(description, "  ", "", -1)
 
 		p := &GithubTrendingProject{
-			Title:       strings.TrimSpace(s.Find("h3 a").Text()),
+			Title:       strings.TrimSpace(s.Find("h1 a").Text()),
 			Description: description,
 			URL:         "https://github.com" + url,
 		}

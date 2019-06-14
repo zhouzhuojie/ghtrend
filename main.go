@@ -18,6 +18,10 @@ var (
 )
 
 func main() {
+	run()
+}
+
+func run() {
 
 	// send the first time when we run
 	sendGithubTrendMail()
